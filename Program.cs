@@ -27,6 +27,15 @@
             foreach (Product p in products)
                 Console.WriteLine($"{p.Name} - ${p.Price} (Stock: {p.Stock})");
         }
+        static List<string> TransformProducts(List<Product> products, Func<Product, string> transform)
+        {
+            List<string> result = new List<string>();
+
+            foreach (Product p in products)
+                result.Add(transform(p));
+
+            return result;
+        }
 
         static void Main()
         {
@@ -63,9 +72,20 @@
 
             Console.WriteLine("\n--- Detailed Report ---");
             PrintReport(catalog, p => Console.WriteLine($"[{p.Category}] {p.Name} | Price: ${p.Price} | Stock: {p.Stock}"));
-        
+
             #endregion
-    }
+            #region answer03
+            Console.WriteLine("--- Summary List ---");
+            List<string> summaries = TransformProducts(catalog, p => $"{p.Name} (${p.Price})");
+            foreach (string s in summaries)
+                Console.WriteLine(s);
+
+            Console.WriteLine("\n--- Price Labels ---");
+            List<string> labels = TransformProducts(catalog, p => $"{p.Name}: {(p.Price > 100 ? "Expensive!" : "Affordable")}");
+            foreach (string s in labels)
+                Console.WriteLine(s);
+            #endregion
+        }
     }
 
     
