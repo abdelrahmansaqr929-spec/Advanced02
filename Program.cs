@@ -36,6 +36,18 @@
 
             return result;
         }
+        static List<Product> FilterProducts(List<Product> products, Predicate<Product> condition)
+        {
+            List<Product> result = new List<Product>();
+
+            foreach (Product p in products)
+            {
+                if (condition(p))
+                    result.Add(p);
+            }
+
+            return result;
+        }
 
         static void Main()
         {
@@ -84,6 +96,12 @@
             List<string> labels = TransformProducts(catalog, p => $"{p.Name}: {(p.Price > 100 ? "Expensive!" : "Affordable")}");
             foreach (string s in labels)
                 Console.WriteLine(s);
+            #endregion
+            #region answer04
+            Console.WriteLine("--- Low-Stock Alert ---");
+            List<Product> lowStock = FilterProducts(catalog, p => p.Stock < 20);
+            foreach (Product p in lowStock)
+                Console.WriteLine($"[LOW STOCK] {p.Name}: only {p.Stock} left!");
             #endregion
         }
     }
