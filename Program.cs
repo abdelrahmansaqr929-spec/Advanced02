@@ -16,6 +16,11 @@
 
             return result;
         }
+        static void PrintReport(List<Product> products, Action<Product> action)
+        {
+            foreach (Product p in products)
+                action(p);
+        }
 
         static void PrintProducts(List<Product> products)
         {
@@ -50,9 +55,17 @@
             PrintProducts(SearchProducts(catalog, p => p.Stock > 0));
 
             Console.WriteLine("\n--- Clothing Under $100 ---");
-            PrintProducts(SearchProducts(catalog, p => p.Category == "Clothing" && p.Price < 100)); 
+            PrintProducts(SearchProducts(catalog, p => p.Category == "Clothing" && p.Price < 100));
             #endregion
-        }
+            #region answer02
+            Console.WriteLine("--- Short Report ---");
+            PrintReport(catalog, p => Console.WriteLine($"{p.Name} - ${p.Price}"));
+
+            Console.WriteLine("\n--- Detailed Report ---");
+            PrintReport(catalog, p => Console.WriteLine($"[{p.Category}] {p.Name} | Price: ${p.Price} | Stock: {p.Stock}"));
+        
+            #endregion
+    }
     }
 
     
