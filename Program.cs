@@ -50,7 +50,7 @@
             PrintProducts(SearchProducts(catalog, p => p.Stock > 0));
 
             Console.WriteLine("\n--- Clothing Under $100 ---");
-            PrintProducts(SearchProducts(catalog, p => p.Category == "Clothing" && p.Price < 100));
+            PrintProducts(SearchProducts(catalog, p => p.Category == "Clothing" && p.Price < 100)); 
             #endregion
         }
     }
